@@ -15,17 +15,18 @@ if (process.env.NODE_ENV === "production") {
 
 // Add routes, both API and view
 app.use(routes);
-
 // Connect to the Mongo DB
-mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://user1:password1@ds125871.mlab.com:25871/heroku_0xn0jnk7",
-  {
+mongoose
+  .connect(process.env.MONGODB_URI || "mongodb://localhost/googlebooksearch", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
     useCreateIndex: true,
-    useNewUrlParser: true
-  }
-);
-
-// Start the API server
-app.listen(PORT, () =>
-  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`)
-);
+    useFindAndModify: false,
+  })
+  .then((result) => {
+    app.listen(PORT);
+    console.log("http://localhost:" + PORT);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
