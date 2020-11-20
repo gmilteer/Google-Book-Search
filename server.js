@@ -17,12 +17,16 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 // Connect to the Mongo DB
 mongoose
-  .connect(process.env.MONGODB_URI || "mongodb://localhost/googlebooksearch", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-  })
+  .connect(
+    process.env.MONGODB_URI ||
+      "mongodb+srv://gmilteer:<password>@cluster0.gpnge.mongodb.net/<dbname>?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+    }
+  )
   .then((result) => {
     app.listen(PORT);
     console.log("http://localhost:" + PORT);
